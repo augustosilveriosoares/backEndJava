@@ -8,7 +8,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-import br.com.rpires.dao.generic.jpa.GenericJpaDAO;
+import br.com.rpires.dao.generic.jpa.GenericJpaDB1DAO;
 import br.com.rpires.domain.jpa.ClienteJpa;
 import br.com.rpires.domain.jpa.ProdutoJpa;
 import br.com.rpires.domain.jpa.VendaJpa;
@@ -19,7 +19,7 @@ import br.com.rpires.exceptions.TipoChaveNaoEncontradaException;
  * @author rodrigo.pires
  *
  */
-public class VendaJpaDAO extends GenericJpaDAO<VendaJpa, Long> implements IVendaJpaDAO {
+public class VendaJpaDAO extends GenericJpaDB1DAO<VendaJpa, Long> implements IVendaJpaDAO {
 
 	public VendaJpaDAO() {
 		super(VendaJpa.class);

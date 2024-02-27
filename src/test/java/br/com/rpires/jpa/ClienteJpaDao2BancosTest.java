@@ -13,8 +13,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.com.rpires.dao.jpa.ClienteJpaDAO;
+import br.com.rpires.dao.jpa.ClienteJpaDB2DAO;
 import br.com.rpires.dao.jpa.IClienteJpaDAO;
 import br.com.rpires.domain.jpa.ClienteJpa;
+import br.com.rpires.domain.jpa.ClienteJpa2;
 import br.com.rpires.exceptions.DAOException;
 import br.com.rpires.exceptions.MaisDeUmRegistroException;
 import br.com.rpires.exceptions.TableException;
@@ -24,23 +26,44 @@ import br.com.rpires.exceptions.TipoChaveNaoEncontradaException;
  * @author rodrigo.pires
  *
  */
-public class ClienteJpaDaoTest {
+public class ClienteJpaDao2BancosTest {
 	
 	private IClienteJpaDAO<ClienteJpa> clienteDao;
 	
+	private IClienteJpaDAO<ClienteJpa> clienteDB2Dao;
+	
 	private Random rd;
 	
-	public ClienteJpaDaoTest() {
+	public ClienteJpaDao2BancosTest() {
 		this.clienteDao = new ClienteJpaDAO();
+		this.clienteDB2Dao = new ClienteJpaDB2DAO();
 		rd = new Random();
 	}
 	
 	@After
 	public void end() throws DAOException {
-		Collection<ClienteJpa> list = clienteDao.buscarTodos();
+		Collection<ClienteJpa> list1 = clienteDao.buscarTodos();
+		excluir1(list1);
+		
+		Collection<ClienteJpa> list2 = clienteDB2Dao.buscarTodos();
+		excluir2(list2);
+	}
+	
+	private void excluir1(Collection<ClienteJpa> list) {
 		list.forEach(cli -> {
 			try {
 				clienteDao.excluir(cli);
+			} catch (DAOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+	}
+	
+	private void excluir2(Collection<ClienteJpa> list) {
+		list.forEach(cli -> {
+			try {
+				clienteDB2Dao.excluir(cli);
 			} catch (DAOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -55,6 +78,12 @@ public class ClienteJpaDaoTest {
 		
 		ClienteJpa clienteConsultado = clienteDao.consultar(cliente.getId());
 		Assert.assertNotNull(clienteConsultado);
+		
+		cliente.setId(null);
+		clienteDB2Dao.cadastrar(cliente);
+		
+		ClienteJpa clienteConsultado2 = clienteDB2Dao.consultar(cliente.getId());
+		Assert.assertNotNull(clienteConsultado2);
 		
 	}
 

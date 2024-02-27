@@ -6,7 +6,7 @@ package br.com.rpires.dao.generic.jpa;
 import java.io.Serializable;
 import java.util.Collection;
 
-import br.com.rpires.dao.Persistente;
+import br.com.rpires.domain.jpa.Persistente;
 import br.com.rpires.exceptions.DAOException;
 import br.com.rpires.exceptions.MaisDeUmRegistroException;
 import br.com.rpires.exceptions.TableException;

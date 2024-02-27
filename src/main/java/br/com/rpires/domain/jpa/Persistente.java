@@ -1,4 +1,4 @@
-package br.com.rpires.dao;
+package br.com.rpires.domain.jpa;
 
 /**
  * @author rodrigo.pires
